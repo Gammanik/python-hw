@@ -1,0 +1,22 @@
+flake8:
+  image: hoto/flake8
+  script:
+  - flake8 --version
+  - flake8 src/
+  except:
+  - master
+
+pylint:
+  image: python:latest
+  before_script:
+  - apt update && apt install -y bc
+  - pip3 install -q pylint
+  - PYLINT_THRESHOLD=9.0
+  script:
+  - pylint --version
+  - find src -type f -iname "*.py" | xargs -r pylint --disable=C0111 | tee pylint.txt || true
+  - score=$(sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' pylint.txt)
+  - (( $(bc <<< "$score >= $PYLINT_THRESHOLD") ))
+  except:
+  - master
+ 
