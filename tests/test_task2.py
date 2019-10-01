@@ -4,7 +4,7 @@ import unittest
 try:
     from src.task2 import matrix_product, matrix_pretty_print
 except ImportError as e:
-    raise unittest.SkipTest("Task 1 is not complete yet")
+    raise unittest.SkipTest("Task 2 is not complete yet")
 
 
 class Task2Tests(unittest.TestCase):
