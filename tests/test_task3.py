@@ -36,7 +36,7 @@ class Task3Tests(unittest.TestCase):
         expected = self.__trim_lines(expected)
 
         with io.StringIO() as buf, redirect_stdout(buf):
-            nl_from_file("task3_input")
+            nl_from_file("tests/task3_input")
             actual = self.__trim_lines(buf.getvalue())
             self.assertEqual(expected, actual)
 
@@ -57,18 +57,16 @@ class Task3Tests(unittest.TestCase):
         4\tfoo
         5\taa
         6\tfdfadsf
-        7\tasdfasdf"""
+        7\tasdfasdf
+"""
         expected = self.__trim_lines(expected)
 
         s = io.StringIO(inp)
         sys.stdin = s
-        nl_from_stdin()
-
         with io.StringIO() as buf, redirect_stdout(buf):
             nl_from_stdin()
             actual = self.__trim_lines(buf.getvalue())
             self.assertEqual(expected, actual)
 
-
-def test_too_many_arguments(self):
+    def test_too_many_arguments(self):
         self.assertRaises(ValueError, main, ["file1.txt", "file1.txt", "file1.txt"])
