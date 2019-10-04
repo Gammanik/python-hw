@@ -5,6 +5,84 @@
 
 ## Процесс сдачи
 
+Для сдачи домашнего задания Вам необходимо
+1. Сделать форк данного репозитория (Fork вверху репозитрория)
+2. Склонировать его к себе на компьютер:
+```
+$ git clone git_url_of_your_repo 
+```
+где `git_url_of_your_repo` -- url к вашему репозиторию (получить его можно, 
+нажав синюю кнпоку Clone в правом верхнем углу вашего форка)
+
+3. Добавить основной репозиторий к своему в качестве remote.
+```
+$ git remote add upstream git@gitlab.com:itmo-scripting-languages/python-2019.git
+```
+В сниппете выше Вы указываете `upstream` в качестве названия нового remote.
+
+Посмотреть уже существующие remote можно следующей командой:
+```
+$ git remote -v
+origin	git@gitlab.com:aleks.zubakov/python-2019.git (fetch)
+origin	git@gitlab.com:aleks.zubakov/python-2019.git (push)
+upstream	git@gitlab.com:itmo-scripting-languages/python-2019.git (fetch)
+upstream	git@gitlab.com:itmo-scripting-languages/python-2019.git (push)
+```
+
+`origin` -- Ваш fork. 
+
+4. Выгрузить новые ветки из общего оригинального репозитория, 
+добавленные преподавателем:
+```
+$ git fetch upstream
+```
+
+Новые ветки будут видны в списке всех веток:
+```
+$ git branch -a
+* master
+  remotes/origin/HEAD -> origin/master
+  remotes/origin/hw1
+  remotes/origin/hw1-test-ci
+  remotes/origin/master
+  remotes/upstream/hw1
+  remotes/upstream/master
+```
+
+В данном случае это `remotes/upstream/master` и `remotes/upstream/hw1`. 
+
+Домашки, как обычно, будут выкладываться в ветки вида `hwN`, где `N` -- номер 
+дз.
+
+Далее Вам необходимо перейти на только что выгруженную ветку и запушить
+("отправить") ее в свой форк:
+```
+$ git checkout upstrem/hw1
+$ git push origin hw1
+```
+
+**Никаких изменений в эту ветку вносить не нужно, Вы будете работать с другой веткой!**
+
+5. Создать ветку вида `hwN-dev`, в которой будет Ваше решение
+```
+$ git checkout -b hw1-dev
+```
+
+6. При готовности запушить рабочую ветку (`hw1-dev`) в Ваш форк:
+```
+$ git push origin hw1-dev
+```
+
+и создать Merge Request. 
+
+**Merge Request должен создаваться из ветки `hwN-dev` в ветку `hwN` Вашего форка.**
+
+**Не забудьте добавить преподавателя в качестве Assignee**
+
+7. Исправления добавляются в ту же ветку в тот же самый MR (новый MR 
+создавать не нужно) также, как и перед отправкой. Для этого достаточно запушить 
+изменения в ветку `hwN-dev` и переоткрыть старый MR.
+
 ## Сроки сдачи 
 **Дедлайны:** см. в README в соответствующей ветке
 
