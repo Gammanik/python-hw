@@ -9,7 +9,6 @@ def nl_from_file(filename):
     for x in f:
         print(str(row_num) + "\t" + x, end="")
         row_num += 1
-
     f.close()
 
 
@@ -29,7 +28,6 @@ def main(args):
         nl_from_file(args)
     else:
         nl_from_stdin()
-
 
 
 if __name__ == '__main__':
