@@ -1,1 +1,3 @@
-# here should be union function
+
+def union(*sets):
+    return set.union(*sets)

@@ -5,23 +5,35 @@ from collections import namedtuple
 Nil = namedtuple('Nil', ())
 Cons = namedtuple('Cons', ('car', 'cdr'))
 
+
 def null(lst):
-    pass
+    return lst == Nil()
+
 
 def fromseq(seq):
-    pass
+    if len(seq) != 0:
+        return Cons(car=seq[0], cdr=fromseq(seq[1:]))
+    else:
+        return Nil()
+
 
 def head(lst):
-    pass
+    return getattr(lst, 'car')
+
 
 def tail(lst):
-    pass
+    return getattr(lst, 'cdr')
+
 
 def foldr(func, acc, lst):
-    pass
+    if head(lst) == null(lst):
+        return 2
+
+
 
 def foldl(func, acc, lst):
     pass
+
 
 def length(lst):
     pass
@@ -45,3 +57,4 @@ def elem(value, lst):
     pass
 
 if __name__ == '__main__':
+    pass
