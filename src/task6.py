@@ -26,35 +26,74 @@ def tail(lst):
 
 
 def foldr(func, acc, lst):
-    if head(lst) == null(lst):
-        return 2
-
+    if lst == Nil():
+        return acc
+    else:
+        return func(head(lst), foldr(func, acc, tail(lst)))
 
 
 def foldl(func, acc, lst):
-    pass
+    if lst == Nil():
+        return acc
+    else:
+        return func(foldl(func, acc, tail(lst)), head(lst))
 
 
 def length(lst):
-    pass
+    if lst == Nil():
+        return 0
+    else:
+        return 1 + length(tail(lst))
 
+
+# using '+' because I want to make it immutable
 def tolist(lst):
-    pass
+    if lst == Nil():
+        return []
+    else:
+        return [head(lst)] + tolist(tail(lst))
+
 
 def map_(func, lst):
-    pass
+    if lst == Nil():
+        return Nil()
+    else:
+        return Cons(func(head(lst)), map_(func, tail(lst)))
+
 
 def append(lst1, lst2):
-    pass
+    if lst1 == Nil():
+        return lst2
+    else:
+        return Cons(head(lst1), append(tail(lst1), lst2))
+
 
 def filter_(pred, lst):
-    pass
+    if lst == Nil():
+        return Nil()
+
+    if pred(head(lst)):
+        return Cons(head(lst), filter_(pred, tail(lst)))
+    else:
+        return filter_(pred, tail(lst))
+
 
 def reverse(lst):
-    pass
+    if lst == Nil():
+        return Nil()
+    else:
+        return append(reverse(tail(lst)), Cons(head(lst), Nil()))
+
 
 def elem(value, lst):
-    pass
+    if lst == Nil():
+        return False
+
+    if head(lst) == value:
+        return True
+    else:
+        return elem(value, tail(lst))
+
 
 if __name__ == '__main__':
     pass
