@@ -17,7 +17,7 @@
 vec1 = Vector([1, 2, 3])
 vec2 = Vector([1, 2, 3])
 
-vec1 *= vec2 
+vec1 += vec2 
 vec3 = 3 * vec1
 ``` 
  
