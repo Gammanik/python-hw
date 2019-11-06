@@ -14,3 +14,13 @@ class Task3Tests(unittest.TestCase):
 
         a = A()
         self.assertEqual(a.e + a.k + 589, 580)
+
+    def test_already_defined_getattr(self):
+        @implicit_int
+        class A:
+            def __getattr__(self, item):
+                if item == 'test':
+                    return 31
+
+        a = A()
+        self.assertEqual(a.test, 31)
