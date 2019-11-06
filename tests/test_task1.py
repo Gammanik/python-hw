@@ -57,3 +57,25 @@ class Task1Tests(unittest.TestCase):
         vec1 *= 3
         self.assertListEqual(self.vec_to_list(vec4), self.vec_to_list(vec5))
         self.assertListEqual(self.vec_to_list(vec4), self.vec_to_list(vec1))
+
+    def test_raises_on_invalid_demensions(self):
+        vec1 = self.create_vector(1, 2, 3)
+        vec2 = self.create_vector(1, 2, 3, 4)
+
+        self.assertRaises(TypeError, lambda: vec1 * vec2)
+        self.assertRaises(TypeError, lambda: vec1 - vec2)
+        self.assertRaises(TypeError, lambda: vec1 + vec2)
+
+        def assign_with_sub():
+            vec3 = self.create_vector(1, 2, 3)
+            vec4 = self.create_vector(1, 2, 3, 4)
+            vec3 -= vec4
+
+        self.assertRaises(TypeError, assign_with_sub())
+
+        def assign_with_add():
+            vec3 = self.create_vector(1, 2, 3)
+            vec4 = self.create_vector(1, 2, 3, 4)
+            vec3 += vec4
+
+        self.assertRaises(TypeError, assign_with_add())
