@@ -8,8 +8,9 @@ class ContextManager:
         return self.new_dict
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        self.outer_self.my_dict = self.new_dict
-        pass
+        if not exc_type:
+            self.outer_self.my_dict = self.new_dict
+
 
 
 class Storage:

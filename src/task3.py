@@ -3,7 +3,6 @@ def implicit_int(cls):
     new_cls = cls
 
     def deco(s, item):
-        s.__dict__[item] = 0
         return 0
 
     new_cls.__getattr__ = deco

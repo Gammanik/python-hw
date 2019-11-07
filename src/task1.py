@@ -45,18 +45,26 @@ class Vector:
         return Vector(res)
 
     def __mul__(self, other):
+        if isinstance(other, (int, float, complex, bool)):
+            res = []
+            for i in range(0, self.get_len()):
+                res.append(other * self.arr[i])
 
-        if not isinstance(other, int):
-            return ValueError("can multiply only to number")
+            return Vector(res)
 
-        res = []
-        for i in range(0, self.get_len()):
-            res.append(other * self.arr[i])
+        if isinstance(other, Vector):
+            res = 0
 
-        return Vector(res)
+            if not self.get_len() == other.get_len():
+                return ValueError("can multiply only same size vectors")
 
-    def __matmul__(self, other):
-        print("lol")
+            for i in range(0, self.get_len()):
+                res += self[i] * other[i]
+
+            return res
+
+        else:
+            raise ValueError("can multiply only to number or Vector")
 
     __rmul__ = __mul__
 
@@ -73,6 +81,9 @@ if __name__ == '__main__':
 
     vec3[2] = 1
     print(vec3[2])
+
+    scal = Vector([1, 2, 3]) * Vector([1, 2, 3])
+    print(scal)
 
 
 
