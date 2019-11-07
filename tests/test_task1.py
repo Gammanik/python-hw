@@ -71,11 +71,11 @@ class Task1Tests(unittest.TestCase):
             vec4 = self.create_vector(1, 2, 3, 4)
             vec3 -= vec4
 
-        self.assertRaises(TypeError, assign_with_sub())
+        self.assertRaises(TypeError, assign_with_sub)
 
         def assign_with_add():
             vec3 = self.create_vector(1, 2, 3)
             vec4 = self.create_vector(1, 2, 3, 4)
             vec3 += vec4
 
-        self.assertRaises(TypeError, assign_with_add())
+        self.assertRaises(TypeError, assign_with_add)
