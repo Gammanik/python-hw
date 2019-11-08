@@ -19,7 +19,6 @@ if __name__ == '__main__':
     class A:
         def m1(self): pass
 
-
     a = A()
 
     print(a.e + 589)  # Вывод: 589

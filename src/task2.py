@@ -25,20 +25,19 @@ class Logger:
 
         return object.__getattribute__(self, item)
 
-    def m1(self):
+    def m_1(self):
         return 0
 
-    def m2(self, a, b):
-        return 1
+    def m_2(self, a, b):
+        return a + b
 
     def __str__(self):
         return str(self.logs)
 
 
 if __name__ == '__main__':
-    lg = Logger()
-    lg.m1()
-    lg.m2(10, 20)
-    print(lg.m1())
-    print(lg)
-
+    loggerUpper = Logger()
+    loggerUpper.m_1()
+    loggerUpper.m_2(10, 20)
+    print(loggerUpper.m_1())
+    print(loggerUpper)

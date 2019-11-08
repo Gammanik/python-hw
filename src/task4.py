@@ -9,8 +9,9 @@ class Timer:
     def __exit__(self, exc_type, exc_val, exc_tb):
         print(exc_type, "val: ", exc_val, "td: ", exc_tb)
 
-        if not exc_type is None:
-            print("finished with exception ", exc_val, " elapsed: ", (timer() - self.start))
+        if exc_type is not None:
+            print("finished with exception ", exc_val, " elapsed: ",
+                  (timer() - self.start))
         else:
             print("elapsed: ", (timer() - self.start))
 

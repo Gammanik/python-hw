@@ -123,8 +123,3 @@ if __name__ == '__main__':
     a += Vector([1, 1, 1])
     print(b)
     print(a)
-
-
-
-
-

@@ -29,5 +29,3 @@ class PrinterContext:
 def foo():
     print("Inside of function")
     return 42
-
-

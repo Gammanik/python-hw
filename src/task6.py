@@ -53,10 +53,3 @@ class Storage:
 
     def __delitem__(self, key):
         raise TypeError("item could be deleted only in Context manager")
-
-
-
-
-
-
-
