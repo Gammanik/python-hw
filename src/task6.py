@@ -1,39 +1,59 @@
 
 class ContextManager:
-    def __init__(self, outer_self):
-        self.outer_self = outer_self
+    def __init__(self, s_dict):
+        self.cm_dict = s_dict
+        self.to_delete = {}
 
     def __enter__(self):
-        self.new_dict = self.outer_self.my_dict.copy()
-        return self.new_dict
+        self.buffer = {}
+        return self
+
+    def __getitem__(self, item):
+        return self.buffer[item]
+
+    def __setitem__(self, key, value):
+        self.buffer[key] = value
+
+        # in case we've deleted an element and then assigned it again
+        if key in self.to_delete:
+            del self.to_delete[key]
+
+    def __delitem__(self, key):
+        if key in self.cm_dict:
+            self.to_delete[key] = key
+        else:
+            raise KeyError("item is not in dict")
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         if not exc_type:
-            self.outer_self.my_dict = self.new_dict
+            for key in self.buffer:
+                self.cm_dict[key] = self.buffer[key]
 
+            for key in self.to_delete.keys():
+                del self.cm_dict[key]
+
+            self.to_delete.clear()
 
 
 class Storage:
     def edit(self):
-        return self.cm
+        return ContextManager(self.my_dict)
 
     def __init__(self):
-        self.cm = ContextManager(self)
-        self.my_dict = {'a': 0, 'b': 0, 'c': 0}
+        self.my_dict = {}
 
+    def __getitem__(self, item):
+        return self.my_dict[item]
 
-if __name__ == '__main__':
-    print("----------start")
-    s = Storage()
+    def __setitem__(self, key, value):
+        raise TypeError("item could be set only in Context manager")
 
-    with s.edit() as se:
-        se['a'] = 1
-        se['b'] = 2
-        print(se)
-        print(s.my_dict)
-        # raise Exception('should not write')
+    def __str__(self):
+        return str(self.my_dict)
 
-    print(s.my_dict)
+    def __delitem__(self, key):
+        raise TypeError("item could be deleted only in Context manager")
+
 
 
 

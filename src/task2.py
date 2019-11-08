@@ -17,16 +17,11 @@ class Logger:
         self.logs = []
 
     def __getattribute__(self, item):
-        # logs = object.__getattribute__(self, "logs")
         method = super().__getattribute__(item)
-
-        # print()
-        # args = inspect.getargvalues(method)
 
         deco = object.__getattribute__(self, 'logs_deco')
         if inspect.ismethod(method):
             return deco(method)
-            # logs.append("item: ", args)
 
         return object.__getattribute__(self, item)
 
@@ -42,7 +37,6 @@ class Logger:
 
 if __name__ == '__main__':
     lg = Logger()
-    # print(dir(l))
     lg.m1()
     lg.m2(10, 20)
     print(lg.m1())

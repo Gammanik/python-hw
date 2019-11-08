@@ -1,6 +1,6 @@
 
 def context_decorator(cls):
-    def new_call(self, foo, *args, **kwargs):
+    def new_call(self, foo):
         def helper():
             with self:
                 return foo()
@@ -31,10 +31,3 @@ def foo():
     return 42
 
 
-if __name__ == '__main__':
-    print('------------------hey')
-
-    # with PrinterContext():
-    #     foo()
-
-    print(foo())
