@@ -16,11 +16,3 @@ class Timer:
             print("elapsed: ", (timer() - self.start))
 
         return True
-
-
-if __name__ == "__main__":
-    cnt = 1
-
-    with Timer() as tm:
-        for i in range(0, 100000):
-            cnt += 1

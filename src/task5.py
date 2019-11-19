@@ -1,31 +1,12 @@
 
 def context_decorator(cls):
-    def new_call(self, foo):
+    def new_call(self, func):
         def helper():
             with self:
-                return foo()
+                return func()
 
         return helper
 
     cls.__call__ = new_call
     return cls
 
-
-@context_decorator
-class PrinterContext:
-
-    def __init__(self, *args):
-        print("init printer", self, args)
-
-    def __enter__(self):
-        print("Enter")
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        print("Exit")
-        return True
-
-
-@PrinterContext()
-def foo():
-    print("Inside of function")
-    return 42

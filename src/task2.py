@@ -4,7 +4,7 @@ from functools import wraps
 
 class Logger:
 
-    def logs_deco(self, method):
+    def _logs_deco(self, method):
         @wraps(method)
         def inner(*args, **kwargs):
             full_args = inspect.getcallargs(method, *args, **kwargs)
@@ -25,19 +25,5 @@ class Logger:
 
         return object.__getattribute__(self, item)
 
-    def m_1(self):
-        return 0
-
-    def m_2(self, a, b):
-        return a + b
-
     def __str__(self):
         return str(self.logs)
-
-
-if __name__ == '__main__':
-    loggerUpper = Logger()
-    loggerUpper.m_1()
-    loggerUpper.m_2(10, 20)
-    print(loggerUpper.m_1())
-    print(loggerUpper)

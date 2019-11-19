@@ -1,5 +1,4 @@
 
-
 class Vector:
 
     def __init__(self, arr):
@@ -96,30 +95,3 @@ class Vector:
     def __isub__(self, other):
         self.arr = self - other
         return self
-
-
-if __name__ == '__main__':
-    vec1 = Vector([1, 2, 3])
-    vec1 += Vector([3, 2, 1])
-    vec2 = vec1 * 3
-    vec3 = 3 * vec1
-
-    print(vec1)
-    print(vec2)
-    print(vec2 - vec3)
-
-    print(abs(vec1))
-
-    vec3[2] = 1
-    print(vec3[2])
-
-    scal = Vector([1, 2, 3]) * Vector([1, 2, 3])
-    print(scal)
-
-    a = Vector([1, 2, 3])
-    b = a
-    a[0] = 5
-    print(b)
-    a += Vector([1, 1, 1])
-    print(b)
-    print(a)
