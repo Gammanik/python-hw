@@ -42,11 +42,7 @@ class Vector:
 
     def __mul__(self, other):
         if isinstance(other, (int, float, complex, bool)):
-            res = []
-            for i in range(0, len(self)):
-                res.append(other * self.arr[i])
-
-            return Vector(res)
+            return Vector([self[i] * other for i in range(0, len(self))])
 
         if isinstance(other, Vector):
             res = 0
@@ -63,26 +59,7 @@ class Vector:
             raise TypeError("can multiply only to number or Vector")
 
     def __rmul__(self, other):
-        if isinstance(other, (int, float, complex, bool)):
-            res = []
-            for i in range(0, len(self)):
-                res.append(other * self.arr[i])
-
-            return Vector(res)
-
-        if isinstance(other, Vector):
-            res = 0
-
-            if not len(self) == len(other):
-                raise TypeError("can multiply only same size vectors")
-
-            for i in range(0, len(self)):
-                res += self[i] * other[i]
-
-            return res
-
-        else:
-            raise TypeError("can multiply only to number or Vector")
+        return self.__mul__(other)
 
     def __iadd__(self, other):
         self.arr = self + other
