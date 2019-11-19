@@ -9,4 +9,3 @@ def context_decorator(cls):
 
     cls.__call__ = new_call
     return cls
-
