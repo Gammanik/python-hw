@@ -3,7 +3,6 @@ from functools import wraps
 
 
 class Logger:
-
     def _logs_deco(self, method):
         @wraps(method)
         def inner(*args, **kwargs):
