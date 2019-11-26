@@ -4,7 +4,8 @@ def to_snake(name):
     new_name.append(name[0])
 
     for i in range(1, len(name)):
-        if (name[i - 1].islower() or name[i - 1].isdigit()) and name[i].isupper():
+        if (name[i - 1].islower() or name[i - 1].isdigit()) \
+                and name[i].isupper():
             new_name.append('_')
             new_name.append(name[i].lower())
         else:

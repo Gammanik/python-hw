@@ -3,8 +3,8 @@ import inspect
 
 class Singleton(type):
 
-    def __iter__(self):
-        return iter(list(map(lambda x: x[1], self.__cache)))
+    def __iter__(cls):
+        return iter(list(map(lambda x: x[1], cls.__cache)))
 
     def __init__(cls, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -25,5 +25,3 @@ class Singleton(type):
         cls.__cache.append((all_args, obj))
 
         return obj
-
-

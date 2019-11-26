@@ -7,7 +7,7 @@ if __name__ == "__main__":
     loader = unittest.TestLoader()
     
     script_path = os.path.realpath(__file__)
-    start_dir = os.path.dirname(script_path) + "/tests"
+    start_dir = os.path.dirname(script_path) + "/src"
 
     suite = loader.discover(start_dir)
 
