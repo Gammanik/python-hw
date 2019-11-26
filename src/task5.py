@@ -19,10 +19,10 @@ class UML(type):
 
         draw_level(0, cls.__name__)
 
-    def __new__(cls, name, bases, attrs, **kwargs):
+    def __new__(mcs, name, bases, attrs, **kwargs):
         UML.dc[name] = []
 
         for base in bases:
             UML.dc[base.__name__].append(name)
 
-        return super().__new__(cls, name, bases, attrs)
+        return super().__new__(mcs, name, bases, attrs)
