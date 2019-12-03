@@ -5,6 +5,17 @@ from contextlib import redirect_stdout, redirect_stderr
 from functools import wraps
 
 
+def tests_for(cls):
+    def wrapper(cls_dec):
+        for i in cls_dec.__dict__:
+            if i not in cls.__dict__ \
+                    and hasattr(cls_dec.__dict__[i], '_is_testing'):
+                setattr(cls, i, cls_dec.__dict__[i])
+        return cls
+
+    return wrapper
+
+
 def test(f):
     @wraps(f)
     def inner(*args, **kwargs):
@@ -44,24 +55,28 @@ def tst_class(cls):
     print("".join(stdout))
 
 
+def init_tst(cls):
+    if hasattr(cls, "_set_up"):
+        inst = getattr(cls, "_set_up")()
+        tst_class(type(inst))
+
+        if hasattr(cls, "_tear_down"):
+            getattr(cls, "_tear_down")(inst)
+
+    else:
+        tst_class(cls)
+
+
 class UnitTest(type):
     childs = list()
 
     def run_tests(cls=None):
         # for an exact class
         if cls:
-            if hasattr(cls, "_set_up"):
-                inst = getattr(cls, "_set_up")()
-                tst_class(type(inst))
-
-                if hasattr(cls, "_tear_down"):
-                    getattr(cls, "_tear_down")(inst)
-
-            else:
-                tst_class(cls)
+            init_tst(cls)
         else:
             for cl in UnitTest.childs:
-                tst_class(cl)
+                init_tst(cl)
 
     def __new__(mcs, name, bases, attrs, set_up=None, tear_down=None):
         if set_up:
@@ -78,81 +93,3 @@ class UnitTest(type):
         obj = super().__call__(*args, **kwargs)
         cls.instance = obj
         return obj
-
-
-class A(metaclass=UnitTest):
-
-    def __init__(self, val):
-        self.val = val
-
-    @test
-    def func1(self):
-        print("Func 1 is called")
-        assert 2 == 3
-        print("Func 1 prints nothing after assertion")
-
-    @test
-    def func2(self):
-        print("Func 2 is called")
-        assert 5 == 5
-        print("Func 2 after assertion")
-
-    def func3(self):
-        return True
-
-    @test
-    def foo(self):
-        # здесь self -- последний созданный инстанс
-        # соответственно, эта проверка должна проходить для кода ниже
-        print("foo from A")
-        assert self.val == 43
-
-
-class B(metaclass=UnitTest):
-    @test
-    def b_func2(self):
-        print("Func 2 is called")
-        assert 5 == 6
-        print("Func 2 after assertion")
-
-
-class C(metaclass=UnitTest, set_up="create_a", tear_down="do_nothing"):
-    def __init__(self, val):
-        self.val = val
-
-    @staticmethod
-    def create_a():
-        # создает объект, к которому будут применены тестовые методы
-        return C(42)
-
-    @staticmethod
-    def do_nothing(obj):
-        # *** тихонько освобождает obj ***
-        print("tear down")
-        pass
-
-    @test
-    def foo(self):
-        print("C enter foo")
-        # здесь self -- инстанс, который был создан с помощью create_a перед запуском тестов;
-        # соответственно, эта проверка должна проходить
-
-        assert self.val == 42
-
-    @test
-    def foo2(self):
-        print("C enter foo 2")
-        # здесь self -- инстанс, который был создан с помощью create_a перед запуском тестов;
-        # соответственно, эта проверка должна проходить
-
-        assert self.val == 22
-
-
-if __name__ == "__main__":
-    print('*' * 50)
-
-    A(42)
-    A(43)
-    B()
-    C(22)
-    UnitTest.run_tests()
