@@ -1,6 +1,5 @@
 
 
-# todo: inside ht
 def h(item, md):
     return hash(item) % md
 
@@ -39,7 +38,6 @@ class HashTable:
     def keys(self):
         # return [[self.lst[i][j] for j in range(len(self.lst))] for i in range(self.sz) if not self.deleted[i]]
         # return [self.lst[i] for i in range(self.sz) if not self.deleted[i]]
-
         return map(lambda x: x[0], self.items())
 
     def items(self):
