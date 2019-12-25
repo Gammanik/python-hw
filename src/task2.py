@@ -15,7 +15,9 @@ class HashTable:
         if self.deleted[h(item, self.sz)]:
             raise KeyError(item)
 
-        return self.lst[h(item, self.sz)][-1][1]
+        for i in range(len(self.lst[h(item, self.sz)])):
+            if self.lst[h(item, self.sz)][i][0] == item:
+                return self.lst[h(item, self.sz)][i][1]
 
     def __setitem__(self, key, value):
         self.elems += 1
@@ -64,8 +66,8 @@ if __name__ == "__main__":
     print(htable['qwe'])
     print()
 
-    del htable['qwe']
-    print(htable['qwe'])
+    # del htable['qwe']
+    # print(htable['qwe'])
 
     print('a' in htable)
     print('qwe' in htable)
