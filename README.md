@@ -38,14 +38,15 @@
 * `StringField` -- текстовое (`str`)
 * `IntField` -- целочисленное (`int`)
 
+```python
+class StringField(Field):
+    def __call__(self, value):
+        return str(value)
 
-    class StringField(Field):
-        def __call__(self, value):
-            return str(value)
-    
-    class IntField(Field):
-        def __call__(self, value):
-            return int(value)
+class IntField(Field):
+    def __call__(self, value):
+        return int(value)
+```
 
 В случае, если число аргументов, переданное в конструктор по умолчанию
 не совпадает с количеством полей типа `Field`, объявленных в классе, то
