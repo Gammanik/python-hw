@@ -38,6 +38,7 @@
 * `StringField` -- текстовое (`str`)
 * `IntField` -- целочисленное (`int`)
 
+
     class StringField(Field):
         def __call__(self, value):
             return str(value)
