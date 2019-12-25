@@ -28,10 +28,10 @@ class HashTable:
 
     def __delitem__(self, key):
         self.elems -= 1
-        self.deleted[h(key, self.sz)] = True
 
         if len(self.lst[h(key, self.sz)]) == 1:
-            del self.lst[h(key, self.sz)]
+            self.deleted[h(key, self.sz)] = True
+            # del self.lst[h(key, self.sz)]
         else:
             del self.lst[h(key, self.sz)][-1]
 
@@ -64,8 +64,8 @@ if __name__ == "__main__":
     print(htable['qwe'])
     print()
 
-    # del htable['qwe']
-    # print(htable['qwe'])
+    del htable['qwe']
+    print(htable['qwe'])
 
     print('a' in htable)
     print('qwe' in htable)
