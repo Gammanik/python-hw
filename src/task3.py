@@ -1,5 +1,5 @@
 from functools import wraps
-from timeit import default_timer
+import datetime
 
 
 spy_list = list()
@@ -8,7 +8,8 @@ spy_list = list()
 def spy(f):
     @wraps(f)
     def inner(*args, **kwargs):
-        time_start = default_timer()
+        time_start = datetime.datetime.now()
+
         spy_list.append((f.__name__, time_start, (args, kwargs)))
         val = f(*args, **kwargs)
         return val
