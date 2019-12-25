@@ -39,10 +39,8 @@ class HashTable:
     def keys(self):
         # return [[self.lst[i][j] for j in range(len(self.lst))] for i in range(self.sz) if not self.deleted[i]]
         # return [self.lst[i] for i in range(self.sz) if not self.deleted[i]]
-        for i in range(0, self.sz):
-            if not self.deleted[i]:
-                for j in self.lst[i]:
-                    yield j[0]
+
+        return map(lambda x: x[0], self.items())
 
     def items(self):
         for i in range(0, self.sz):
@@ -55,6 +53,7 @@ class HashTable:
 
     def __len__(self):
         return self.elems
+
 
 if __name__ == "__main__":
     print('*'*60)
