@@ -53,6 +53,8 @@ class HashTable:
     def __contains__(self, item):
         return not self.deleted[h(item, self.sz)]
 
+    def __len__(self):
+        return self.elems
 
 if __name__ == "__main__":
     print('*'*60)
@@ -68,9 +70,6 @@ if __name__ == "__main__":
     # del htable['qwe']
     # print(htable['qwe'])
 
-    # print(htable.keys())
-    # print()
-
     print('a' in htable)
     print('qwe' in htable)
 
@@ -80,11 +79,4 @@ if __name__ == "__main__":
     for key, value in htable.items():
         print(key, value)
 
-
-        
-
-
-
-
-
-
+    print(len(htable))
